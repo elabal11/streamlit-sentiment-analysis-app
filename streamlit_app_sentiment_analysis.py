@@ -16,9 +16,20 @@ st.title('Sentiment Analysis App')
 
 # App description
 st.markdown('''
-This app accepts an Excel file with a column of text comments, performs sentiment analysis on each comment, 
-and allows you to download an Excel file with the results. The sentiment analysis calculates the polarity and subjectivity of each comment. 
-Polarity is a measure of the positivity or negativity of the comment. Subjectivity is a measure of the objectivity or subjectivity of the comment.
+## Description
+
+This app:
+
+- Accepts an Excel file with a column of text comments.
+- Performs sentiment analysis on each comment.
+- Allows you to download an Excel file with the results.
+
+### Sentiment Analysis
+
+The sentiment analysis calculates:
+
+1. **Polarity**: This is a measure that lies in the range of [-1,1]. A value closer to -1 means that the sentiment is more negative, a value closer to +1 means the sentiment is more positive, and a value around 0 indicates a neutral sentiment.
+2. **Subjectivity**: This is a measure that lies in the range of [0,1]. A value closer to 0 means that the text is more objective, while a value closer to 1 means the text is more subjective.
 ''')
 
 uploaded_file = st.file_uploader('Please upload your excel file', type=['xlsx'])
