@@ -20,9 +20,12 @@ st.markdown('''
 
 This app:
 
-- Accepts an Excel file with a column of text comments.
+- Provides a template Excel file to be filled with a column of text comments.
+- Accepts an uploaded Excel file with the filled comments.
 - Performs sentiment analysis on each comment.
 - Allows you to download an Excel file with the results.
+
+You can download the template file, fill it with your text comments, and then upload it back to the app.
 
 ### Sentiment Analysis
 
@@ -32,7 +35,17 @@ The sentiment analysis calculates:
 2. **Subjectivity**: This is a measure that lies in the range of [0,1]. A value closer to 0 means that the text is more objective, while a value closer to 1 means the text is more subjective.
 ''')
 
-uploaded_file = st.file_uploader('Please upload your excel file', type=['xlsx'])
+# Download button for the template file
+with open("template_sentiment_analysis.xlsx", "rb") as f:
+    bytes_data = f.read()
+st.download_button(
+    label="Download Template File",
+    data=bytes_data,
+    file_name="template_sentiment_analysis.xlsx",
+    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+)
+
+uploaded_file = st.file_uploader('Please upload your filled excel file', type=['xlsx'])
 
 if uploaded_file is not None:
     df = pd.read_excel(uploaded_file)
@@ -44,7 +57,7 @@ if uploaded_file is not None:
     towrite.seek(0)  # reset pointer
     downloaded_file = towrite.read()  # read data to a variable
 
-    # Use st.download_button to create a download button
+    # Use st.download_button to create a download button for processed data
     st.download_button(
         label="Download Processed Data",
         data=downloaded_file,
