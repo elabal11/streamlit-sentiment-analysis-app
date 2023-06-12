@@ -19,10 +19,9 @@ if uploaded_file is not None:
 
     # Prepare processed data for download
     towrite = io.BytesIO()
-    downloaded_file = pd.ExcelWriter(towrite, engine='openpyxl') 
-    df_processed.to_excel(downloaded_file, index=False, sheet_name='Sheet1')
-    downloaded_file.save()
-    downloaded_file = towrite.getvalue()  # Converts the bytes IO stream to actual bytes
+    df_processed.to_excel(towrite, engine='xlsxwriter', index=False, sheet_name='Sheet1')
+    towrite.seek(0)  # reset pointer
+    downloaded_file = towrite.read()  # read data to a variable
 
     # Use st.download_button to create a download button
     st.download_button(
